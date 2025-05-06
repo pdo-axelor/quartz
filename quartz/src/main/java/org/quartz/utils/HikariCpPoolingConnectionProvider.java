@@ -54,7 +54,7 @@ public class HikariCpPoolingConnectionProvider implements PoolingConnectionProvi
     public static final String POOLING_PROVIDER_NAME = "hikaricp";
 
     /** Discard connections after they have been idle this many seconds.  0 disables the feature. Default is 0.*/
-    private static final String DB_DISCARD_IDLE_CONNECTIONS_SECONDS = "discardIdleConnectionsSeconds";
+    public static final String DB_DISCARD_IDLE_CONNECTIONS_SECONDS = "discardIdleConnectionsSeconds";
 
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,7 +158,7 @@ public class HikariCpPoolingConnectionProvider implements PoolingConnectionProvi
         datasource.setUsername(dbUser);
         datasource.setPassword(dbPassword);
         datasource.setMaximumPoolSize(maxConnections);
-        datasource.setIdleTimeout(maxIdleSeconds);
+        datasource.setIdleTimeout(maxIdleSeconds * 1000L);
 
         if (dbValidationQuery != null) {
             datasource.setConnectionTestQuery(dbValidationQuery);

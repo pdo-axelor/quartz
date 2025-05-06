@@ -48,6 +48,7 @@ import org.quartz.utils.ConnectionProvider;
 import org.quartz.utils.DBConnectionManager;
 import org.quartz.utils.JNDIConnectionProvider;
 import org.quartz.utils.C3p0PoolingConnectionProvider;
+import org.quartz.utils.HikariCpPoolingConnectionProvider;
 import org.quartz.utils.PoolingConnectionProvider;
 import org.quartz.utils.PropertiesParser;
 import org.slf4j.Logger;
@@ -1412,6 +1413,8 @@ public class StdSchedulerFactory implements SchedulerFactory {
             copyProps.remove(C3p0PoolingConnectionProvider.DB_VALIDATE_ON_CHECKOUT);
             copyProps.remove(C3p0PoolingConnectionProvider.DB_IDLE_VALIDATION_SECONDS);
             copyProps.remove(C3p0PoolingConnectionProvider.DB_DISCARD_IDLE_CONNECTIONS_SECONDS);
+        } else if (cp instanceof HikariCpPoolingConnectionProvider) {
+            copyProps.remove(HikariCpPoolingConnectionProvider.DB_DISCARD_IDLE_CONNECTIONS_SECONDS);
         }
 
         setBeanProps(cp.getDataSource(), copyProps);
